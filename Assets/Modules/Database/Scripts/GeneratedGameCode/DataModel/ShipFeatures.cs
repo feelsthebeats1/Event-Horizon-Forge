@@ -27,16 +27,16 @@ namespace GameDatabase.DataModel
 			EnergyResistance = UnityEngine.Mathf.Clamp(serializable.EnergyResistance, -100f, 100f);
 			KineticResistance = UnityEngine.Mathf.Clamp(serializable.KineticResistance, -100f, 100f);
 			HeatResistance = UnityEngine.Mathf.Clamp(serializable.HeatResistance, -100f, 100f);
-			ShipWeightBonus = UnityEngine.Mathf.Clamp(serializable.ShipWeightBonus, -1f, 10f);
-			EquipmentWeightBonus = UnityEngine.Mathf.Clamp(serializable.EquipmentWeightBonus, -1f, 10f);
-			VelocityBonus = UnityEngine.Mathf.Clamp(serializable.VelocityBonus, -1f, 10f);
-			TurnRateBonus = UnityEngine.Mathf.Clamp(serializable.TurnRateBonus, -1f, 10f);
-			ArmorBonus = UnityEngine.Mathf.Clamp(serializable.ArmorBonus, -1f, 10f);
-			ShieldBonus = UnityEngine.Mathf.Clamp(serializable.ShieldBonus, -1f, 10f);
-			EnergyBonus = UnityEngine.Mathf.Clamp(serializable.EnergyBonus, -1f, 10f);
-			DroneBuildSpeedBonus = UnityEngine.Mathf.Clamp(serializable.DroneBuildSpeedBonus, -1f, 10f);
-			DroneAttackBonus = UnityEngine.Mathf.Clamp(serializable.DroneAttackBonus, -1f, 10f);
-			DroneDefenseBonus = UnityEngine.Mathf.Clamp(serializable.DroneDefenseBonus, -1f, 10f);
+			ShipWeightBonus = UnityEngine.Mathf.Clamp(serializable.ShipWeightBonus, -1f, 100f);
+			EquipmentWeightBonus = UnityEngine.Mathf.Clamp(serializable.EquipmentWeightBonus, -1f, 100f);
+			VelocityBonus = UnityEngine.Mathf.Clamp(serializable.VelocityBonus, -1f, 100f);
+			TurnRateBonus = UnityEngine.Mathf.Clamp(serializable.TurnRateBonus, -1f, 100f);
+			ArmorBonus = UnityEngine.Mathf.Clamp(serializable.ArmorBonus, -1f, 100f);
+			ShieldBonus = UnityEngine.Mathf.Clamp(serializable.ShieldBonus, -1f, 100f);
+			EnergyBonus = UnityEngine.Mathf.Clamp(serializable.EnergyBonus, -1f, 100f);
+			DroneBuildSpeedBonus = UnityEngine.Mathf.Clamp(serializable.DroneBuildSpeedBonus, -1f, 100f);
+			DroneAttackBonus = UnityEngine.Mathf.Clamp(serializable.DroneAttackBonus, -1f, 100f);
+			DroneDefenseBonus = UnityEngine.Mathf.Clamp(serializable.DroneDefenseBonus, -1f, 100f);
 			Regeneration = serializable.Regeneration;
 			BuiltinDevices = new ImmutableCollection<Device>(serializable.BuiltinDevices?.Select(item => loader.GetDevice(new ItemId<Device>(item), true)));
 
