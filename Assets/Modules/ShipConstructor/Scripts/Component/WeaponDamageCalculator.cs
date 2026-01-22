@@ -185,6 +185,7 @@ namespace Constructor.Component
                 case AmmunitionClassObsolete.VampiricRay:
                 case AmmunitionClassObsolete.SmallVampiricRay:
                 case AmmunitionClassObsolete.LaserBeam:
+                    return damage.Add(ammunition.Damage * ammunition.LifeTime * fireRate, ammunition.DamageType);
                 case AmmunitionClassObsolete.AcidRocket:
                     return damage.Add(ammunition.Damage * ammunition.LifeTime * fireRate, ammunition.DamageType);
                 case AmmunitionClassObsolete.Fireworks:
