@@ -1,0 +1,1 @@
+.CodeGenerator\DatabaseCodeGenerator\bin\Debug\DatabaseCodeGenerator.exe .Schema\versions.xml Scripts upgrade_game

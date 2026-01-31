@@ -1,1 +1,1 @@
-start .Editor\GameDatabase\bin\Release\net6.0-windows\DatabaseEditor.exe Resources\Database
+start .Editor\GameDatabase\bin\Debug\net6.0-windows\DatabaseEditor.exe Resources\Database

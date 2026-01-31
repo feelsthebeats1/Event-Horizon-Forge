@@ -28,15 +28,12 @@
     <item name="CombatRules" value="30" />
     <item name="ComponentStatUpgrade" value="31" />
     <item name="StatUpgradeTemplate" value="32" />
-    <item name="FrontierLevel" value="33" />
-    <item name="FrontierCommonLevel" value="34" />
     <item name="ComponentGroupTag" value="35" />
 
     <item name="ShipSettings" value="100" />
     <item name="GalaxySettings" value="101" />
     <item name="DatabaseSettings" value="102" />
     <item name="ExplorationSettings" value="103" />
-    <item name="FrontierSettings" value="104" />
     <item name="ShipModSettings" value="105" />
     <item name="SpecialEventSettings"  value="106" />
     <item name="SkillSettings" value="107" />
@@ -47,8 +44,6 @@
     <item name="MusicPlaylist" value="112" />
     <item name="ResearchSetting" value="113" />
     <item name="PvpSettings" value="114" />
-    <item name="FrontierNpcSettings" value="115" />
-    <item name="FrontierLevelSettings" value="116" />
     <item name="LocalizationSettings" value="117" />
     <item name="WeaponSlots" value="118" />
 </data>

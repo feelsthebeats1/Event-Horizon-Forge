@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data name="AsteroidBeltSettings" type="struct">
+    <member name="MeteoriteChance" type="int" default="70"/>
+    <member name="ContainerChance" type="int" default="15"/>
+    <member name="ShipWreckChance" type="int" default="10"/>
+    <member name="OutpostChance" type="int" default="5"/>
+</data>

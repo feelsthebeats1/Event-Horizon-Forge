@@ -215,6 +215,19 @@ namespace GameDatabase.Storage
                 if (!_allowDuplicates)
                     throw new DatabaseException("Duplicate ShipBuild ID - " + item.Id + " (" + name + ")");
             }
+            else if (type == ItemType.Skill)
+            {
+			    if (!_skillMap.ContainsKey(item.Id))
+                {
+                    var data = _serializer.FromJson<SkillSerializable>(content);
+                    data.FileName = name;
+                    _skillMap.Add(data.Id, data);
+                    return;
+                }
+
+                if (!_allowDuplicates)
+                    throw new DatabaseException("Duplicate Skill ID - " + item.Id + " (" + name + ")");
+            }
             else if (type == ItemType.StatUpgradeTemplate)
             {
 			    if (!_statUpgradeTemplateMap.ContainsKey(item.Id))
@@ -616,6 +629,7 @@ namespace GameDatabase.Storage
 		public IEnumerable<SatelliteBuildSerializable> SatelliteBuildList => _satelliteBuildMap.Values;
 		public IEnumerable<ShipSerializable> ShipList => _shipMap.Values;
 		public IEnumerable<ShipBuildSerializable> ShipBuildList => _shipBuildMap.Values;
+		public IEnumerable<SkillSerializable> SkillList => _skillMap.Values;
 		public IEnumerable<StatUpgradeTemplateSerializable> StatUpgradeTemplateList => _statUpgradeTemplateMap.Values;
 		public IEnumerable<TechnologySerializable> TechnologyList => _technologyMap.Values;
 		public IEnumerable<BehaviorTreeSerializable> BehaviorTreeList => _behaviorTreeMap.Values;
@@ -644,6 +658,7 @@ namespace GameDatabase.Storage
 		public SatelliteBuildSerializable GetSatelliteBuild(int id) { return _satelliteBuildMap.TryGetValue(id, out var item) ? item : null; }
 		public ShipSerializable GetShip(int id) { return _shipMap.TryGetValue(id, out var item) ? item : null; }
 		public ShipBuildSerializable GetShipBuild(int id) { return _shipBuildMap.TryGetValue(id, out var item) ? item : null; }
+		public SkillSerializable GetSkill(int id) { return _skillMap.TryGetValue(id, out var item) ? item : null; }
 		public StatUpgradeTemplateSerializable GetStatUpgradeTemplate(int id) { return _statUpgradeTemplateMap.TryGetValue(id, out var item) ? item : null; }
 		public TechnologySerializable GetTechnology(int id) { return _technologyMap.TryGetValue(id, out var item) ? item : null; }
 		public BehaviorTreeSerializable GetBehaviorTree(int id) { return _behaviorTreeMap.TryGetValue(id, out var item) ? item : null; }
@@ -679,6 +694,7 @@ namespace GameDatabase.Storage
 		private readonly Dictionary<int, SatelliteBuildSerializable> _satelliteBuildMap = new();
 		private readonly Dictionary<int, ShipSerializable> _shipMap = new();
 		private readonly Dictionary<int, ShipBuildSerializable> _shipBuildMap = new();
+		private readonly Dictionary<int, SkillSerializable> _skillMap = new();
 		private readonly Dictionary<int, StatUpgradeTemplateSerializable> _statUpgradeTemplateMap = new();
 		private readonly Dictionary<int, TechnologySerializable> _technologyMap = new();
 		private readonly Dictionary<int, BehaviorTreeSerializable> _behaviorTreeMap = new();
