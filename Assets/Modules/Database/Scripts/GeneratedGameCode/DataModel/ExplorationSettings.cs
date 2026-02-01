@@ -32,7 +32,6 @@ namespace GameDatabase.DataModel
 			HiveShipBuild = loader?.GetShipBuild(new ItemId<ShipBuild>(serializable.HiveShipBuild)) ?? ShipBuild.DefaultValue;
 			_gasCloudDPS = new Expressions.IntToFloat(serializable.GasCloudDPS, 1, 2147483647, variableResolver) { ParamName1 = "level" };
 			GasCloudDPS = _gasCloudDPS.Evaluate;
-			AsteroidBelt = AsteroidBeltSettings.Create(serializable.AsteroidBelt, loader);
 
 			OnDataDeserialized(serializable, loader);
 		}
@@ -44,7 +43,6 @@ namespace GameDatabase.DataModel
 		private readonly Expressions.IntToFloat _gasCloudDPS;
 		public delegate float GasCloudDPSDelegate(int level);
 		public GasCloudDPSDelegate GasCloudDPS { get; private set; }
-		public AsteroidBeltSettings AsteroidBelt { get; private set; }
 
 		public static ExplorationSettings DefaultValue { get; private set; }
 

@@ -20,6 +20,5 @@ namespace GameDatabase.Serializable
 		public int InfectedPlanetFaction;
 		public int HiveShipBuild;
 		public string GasCloudDPS = "MIN(level*2,500)";
-		public AsteroidBeltSettingsSerializable AsteroidBelt;
 	}
 }
