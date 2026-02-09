@@ -26,7 +26,7 @@ namespace Combat.Ai
 
         public void Update(float deltaTime, in AiManager.Options options)
         {
-            var context = new Context(_ship, null, _targets, null, _currentTime, _scene);
+            var context = new Context(_ship, null, _targets, null, _currentTime);
 
             _targets.Update(deltaTime, _ship, null);
             foreach (var policy in _strategy)

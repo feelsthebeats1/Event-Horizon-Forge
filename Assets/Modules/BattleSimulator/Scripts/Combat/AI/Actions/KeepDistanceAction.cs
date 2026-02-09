@@ -22,23 +22,7 @@ namespace Combat.Ai
 		    var minDistance = _distanceMin + ship.Body.Scale/2 + enemy.Body.Scale/2;
 		    var maxDistance = minDistance - _distanceMin + _distanceMax;
 
-            //var direction = ship.Body.Position.Direction(enemy.Body.Position); original code
-
-            var sceneWidth = context.Scene.Settings.AreaWidth;
-            var sceneHeight = context.Scene.Settings.AreaHeight;
-
-            var direction = enemy.Body.Position - ship.Body.Position;
-
-            if (direction.x > sceneWidth / 2)
-                direction.x -= sceneWidth;
-            else if (direction.x < -sceneWidth / 2)
-                direction.x += sceneWidth;
-
-            if (direction.y > sceneHeight / 2)
-                direction.y -= sceneHeight;
-            else if (direction.y < -sceneHeight / 2)
-                direction.y += sceneHeight;
-
+		    var direction = ship.Body.Position.Direction(enemy.Body.Position);
             var alpha = RotationHelpers.Angle(direction);
 
             var distance = direction.magnitude;
