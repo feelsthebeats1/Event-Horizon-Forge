@@ -18,7 +18,7 @@ namespace Combat.Ai
         {
             _currentTime += deltaTime;
             var enemy = GetEnemy();
-            var context = new Context(_ship, enemy, null, null, _currentTime);
+            var context = new Context(_ship, enemy, null, null, _currentTime, _scene);
             _strategy.Apply(context, _controls);
             _controls.Apply(_ship);
         }

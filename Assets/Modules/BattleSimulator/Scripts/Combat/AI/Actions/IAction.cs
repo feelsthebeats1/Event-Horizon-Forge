@@ -1,5 +1,6 @@
 using Combat.Component.Ship;
 using Combat.Component.Controls;
+using Combat.Scene;
 
 namespace Combat.Ai
 {
@@ -75,7 +76,7 @@ namespace Combat.Ai
 
     public struct Context
 	{
-	    public Context(IShip ship, IShip target, TargetList secondaryTargets, ThreatList threats, float currentTime)
+	    public Context(IShip ship, IShip target, TargetList secondaryTargets, ThreatList threats, float currentTime, IScene scene)
 	    {
 	        Ship = ship;
 	        Enemy = target;
@@ -83,6 +84,7 @@ namespace Combat.Ai
 	        CurrentTime = currentTime;
 	        UnusedEnergy = new FloatReference { Value = Ship.Stats.Energy.Value };
             Targets = secondaryTargets;
+            Scene = scene;
         }
 
         public float CurrentTime;
@@ -91,6 +93,7 @@ namespace Combat.Ai
         public TargetList Targets;
         public IShip Enemy;
 	    public FloatReference UnusedEnergy;
+	    public readonly IScene Scene;
 
         public class FloatReference
         {

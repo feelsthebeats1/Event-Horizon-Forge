@@ -40,7 +40,7 @@ namespace Combat.Ai
                 _targets.Update(deltaTime, _ship, enemy);
             }
 
-            var context = new Context(_ship, enemy, _targets, _threats, _currentTime);
+            var context = new Context(_ship, enemy, _targets, _threats, _currentTime, _scene);
             _strategy.Apply(context, _controls);
             _controls.Apply(_ship);
         }
