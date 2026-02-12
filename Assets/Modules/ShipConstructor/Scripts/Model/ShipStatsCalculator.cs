@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameDatabase.DataModel;
 using GameDatabase.Enums;
 using GameDatabase.Model;
@@ -163,10 +164,74 @@ namespace Constructor.Model
         public float EnergyRechargeCooldown => (EquipmentStats.EnergyRechargeBaseCooldown + ShipSettings.EnergyRechargeCooldown) * Mathf.Max(EquipmentStats.EnergyRechargeCooldownMultiplier.Value * BaseStats.EnergyRechargeCooldownMultiplier.Value, 0);
         public float ShieldRechargeCooldown => (EquipmentStats.ShieldRechargeBaseCooldown + ShipSettings.ShieldRechargeCooldown) * Mathf.Max(EquipmentStats.ShieldRechargeCooldownMultiplier.Value * BaseStats.ShieldRechargeCooldownMultiplier.Value, 0);
 
-        public float EnergyAbsorptionPercentage => EnergyAbsorption / (ArmorPoints + EnergyAbsorption);
-        public float KineticResistancePercentage => KineticResistance / (ArmorPoints + KineticResistance);
-        public float EnergyResistancePercentage => EnergyResistance / (ArmorPoints + EnergyResistance);
-        public float ThermalResistancePercentage => ThermalResistance / (ArmorPoints + ThermalResistance);
+        public float EnergyAbsorptionPercentage
+        {
+            get
+            {
+                var res = EnergyAbsorption;
+                var armor = ArmorPoints;
+
+                if (res >= 0)
+                {
+                    return res / (armor + res);
+                }
+                else
+                {
+                    return res / Mathf.Max(1f, armor);
+                }
+            }
+        }
+        public float KineticResistancePercentage
+        {
+            get
+            {
+                var res = KineticResistance;
+                var armor = ArmorPoints;
+
+                if (res >= 0)
+                {
+                    return res / (armor + res);
+                }
+                else
+                {
+                    return res / Mathf.Max(1f, armor);
+                }
+            }
+        }
+        public float EnergyResistancePercentage
+        {
+            get
+            {
+                var res = EnergyResistance;
+                var armor = ArmorPoints;
+
+                if (res >= 0)
+                {
+                    return res / (armor + res);
+                }
+                else
+                {
+                    return res / Mathf.Max(1f, armor);
+                }
+            }
+        }
+        public float ThermalResistancePercentage
+        {
+            get
+            {
+                var res = ThermalResistance;
+                var armor = ArmorPoints;
+
+                if (res >= 0)
+                {
+                    return res / (armor + res);
+                }
+                else
+                {
+                    return res / Mathf.Max(1f, armor);
+                }
+            }
+        }
 
         public float Weight
         {
