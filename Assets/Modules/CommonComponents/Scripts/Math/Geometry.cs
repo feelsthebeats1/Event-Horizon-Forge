@@ -151,4 +151,22 @@ public static class Geometry
 		
 		return true;
 	}
+
+    public static Vector2 CalculateToroidalDelta(Vector2 from, Vector2 to, float areaWidth, float areaHeight)
+    {
+        float dx = to.x - from.x;
+        float dy = to.y - from.y;
+
+        if (dx > areaWidth / 2f)
+            dx -= areaWidth;
+        else if (dx < -areaWidth / 2f)
+            dx += areaWidth;
+
+        if (dy > areaHeight / 2f)
+            dy -= areaHeight;
+        else if (dy < -areaHeight / 2f)
+            dy += areaHeight;
+
+        return new Vector2(dx, dy);
+    }
 }

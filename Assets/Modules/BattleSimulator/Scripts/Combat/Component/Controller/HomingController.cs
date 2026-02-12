@@ -62,9 +62,10 @@ namespace Combat.Component.Controller
                         _maxVelocity, out var targetPosition, out _))
                 {
                     targetPosition = _target.Body.WorldPosition();
-                }            
-            
-                var direction = _unit.Body.WorldPosition().Direction(targetPosition);
+                }
+                
+                Vector2 deltaToTarget = Geometry.CalculateToroidalDelta(_unit.Body.WorldPosition(), targetPosition, _scene.Settings.AreaWidth, _scene.Settings.AreaHeight);
+                var direction = deltaToTarget.normalized;
                 var target = RotationHelpers.Angle(direction);
                 var rotation = _unit.Body.WorldRotation();
                 var delta = Mathf.DeltaAngle(rotation, target);
