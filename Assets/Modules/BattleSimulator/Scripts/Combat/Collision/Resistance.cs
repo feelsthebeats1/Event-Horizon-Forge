@@ -1,4 +1,5 @@
 ﻿using GameDatabase.Enums;
+using System;
 
 namespace Combat.Collision
 {
@@ -15,7 +16,11 @@ namespace Combat.Collision
 		public float ModifyHeatDamage(float damage) => ModifyDamage(damage, Heat);
 		public float ModifyCorrosiveDamage(float damage) => ModifyDamage(damage, 0.5f * MinResistance);
 
-        public static float ModifyDamage(float damage, float resistance) => damage > 0 ? damage * (1f - resistance) : damage;
+        public static float ModifyDamage(float damage, float resistance)
+        {
+            resistance = Math.Min(resistance, 1f);
+            return damage > 0 ? damage * (1f - resistance) : damage;
+        }
 
 		public float ModifyDamage(DamageType damageType, float damage)
 		{
