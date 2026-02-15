@@ -15,5 +15,10 @@
   "ShipExplosionEffect": 20,
   "ShipExplosionSound": "explosion_01",
   "DroneExplosionEffect": 21,
-  "DroneExplosionSound": "explosion_10"
+  "DroneExplosionSound": "explosion_10",
+  "ShipExtensionRequiredLevelBase": 5,
+  "ShipExtensionRequiredLevelFactor1": 5,
+  "ShipExtensionRequiredLevelFactor2": 95,
+  "ShipExtensionShipyardLevelBase": 5,
+  "ShipExtensionShipyardLevelPerCell": 5
 }
