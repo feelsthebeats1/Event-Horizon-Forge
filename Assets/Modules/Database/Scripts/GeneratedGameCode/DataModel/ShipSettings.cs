@@ -45,6 +45,11 @@ namespace GameDatabase.DataModel
 			ShipExplosionSound = new AudioClipId(serializable.ShipExplosionSound);
 			DroneExplosionEffect = loader?.GetVisualEffect(new ItemId<VisualEffect>(serializable.DroneExplosionEffect)) ?? VisualEffect.DefaultValue;
 			DroneExplosionSound = new AudioClipId(serializable.DroneExplosionSound);
+			ShipExtensionRequiredLevelBase = UnityEngine.Mathf.Clamp(serializable.ShipExtensionRequiredLevelBase, 0, 1000);
+			ShipExtensionRequiredLevelFactor1 = UnityEngine.Mathf.Clamp(serializable.ShipExtensionRequiredLevelFactor1, 0, 1000);
+			ShipExtensionRequiredLevelFactor2 = UnityEngine.Mathf.Clamp(serializable.ShipExtensionRequiredLevelFactor2, 0, 1000);
+			ShipExtensionShipyardLevelBase = UnityEngine.Mathf.Clamp(serializable.ShipExtensionShipyardLevelBase, 0, 1000);
+			ShipExtensionShipyardLevelPerCell = UnityEngine.Mathf.Clamp(serializable.ShipExtensionShipyardLevelPerCell, 0, 1000);
 
 			OnDataDeserialized(serializable, loader);
 		}
@@ -70,6 +75,11 @@ namespace GameDatabase.DataModel
 		public AudioClipId ShipExplosionSound { get; private set; }
 		public VisualEffect DroneExplosionEffect { get; private set; }
 		public AudioClipId DroneExplosionSound { get; private set; }
+		public int ShipExtensionRequiredLevelBase { get; private set; }
+		public int ShipExtensionRequiredLevelFactor1 { get; private set; }
+		public int ShipExtensionRequiredLevelFactor2 { get; private set; }
+		public int ShipExtensionShipyardLevelBase { get; private set; }
+		public int ShipExtensionShipyardLevelPerCell { get; private set; }
 
 		public static ShipSettings DefaultValue { get; private set; }
 	}

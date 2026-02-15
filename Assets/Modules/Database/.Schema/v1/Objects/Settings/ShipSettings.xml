@@ -21,4 +21,9 @@
     <member name="ShipExplosionSound" type="audioclip" />
     <member name="DroneExplosionEffect" type="object" typeid="VisualEffect" />
     <member name="DroneExplosionSound" type="audioclip" />
+    <member name="ShipExtensionRequiredLevelBase" type="int" minvalue="0" maxvalue="1000" default="5" />
+    <member name="ShipExtensionRequiredLevelFactor1" type="int" minvalue="0" maxvalue="1000" default="5" />
+    <member name="ShipExtensionRequiredLevelFactor2" type="int" minvalue="0" maxvalue="1000" default="95" />
+    <member name="ShipExtensionShipyardLevelBase" type="int" minvalue="0" maxvalue="1000" default="5" />
+    <member name="ShipExtensionShipyardLevelPerCell" type="int" minvalue="0" maxvalue="1000" default="5" />
 </data>

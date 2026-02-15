@@ -36,5 +36,10 @@ namespace GameDatabase.Serializable
 		public string ShipExplosionSound;
 		public int DroneExplosionEffect;
 		public string DroneExplosionSound;
+		public int ShipExtensionRequiredLevelBase = 5;
+		public int ShipExtensionRequiredLevelFactor1 = 5;
+		public int ShipExtensionRequiredLevelFactor2 = 95;
+		public int ShipExtensionShipyardLevelBase = 5;
+		public int ShipExtensionShipyardLevelPerCell = 5;
 	}
 }
