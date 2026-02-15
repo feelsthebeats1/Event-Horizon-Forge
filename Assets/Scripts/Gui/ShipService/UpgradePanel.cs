@@ -1,5 +1,6 @@
 ﻿using Constructor.Ships;
 using Economy;
+using GameDatabase;
 using GameDatabase.DataModel;
 using GameDatabase.Enums;
 using GameServices.Gui;
@@ -38,6 +39,7 @@ namespace Gui.ShipService
         [Inject] private readonly GuiHelper _guiHelper;
         [Inject] private readonly PlayerResources _playerResources;
         [Inject] private readonly PlayerInventory _playerInventory;
+		[Inject] private readonly IDatabase _database;
         [Inject] private readonly IResourceLocator _resourceLocator;
         [Inject] private readonly ILocalization _localization;
         [Inject] private readonly ISoundPlayer _soundPlayer;
@@ -50,7 +52,7 @@ namespace Gui.ShipService
             _selectedBlockX = _invalidBlock;
             _selectedBlockY = _invalidBlock;
             _shipLayout.ClearSelection();
-            _shipInfo = new ShipInformation(_ship, _faction, _level);
+            _shipInfo = new ShipInformation(_ship, _faction, _level, _database);
 
             UpdateControls();
         }
@@ -90,7 +92,7 @@ namespace Gui.ShipService
 
             _soundPlayer.Play(_buySound);
             _selectedBlockX = _selectedBlockY = _invalidBlock;
-            _shipInfo = new ShipInformation(_ship, _faction, _level);
+            _shipInfo = new ShipInformation(_ship, _faction, _level, _database);
             _shipLayout.Initialize(_ship.Model.Layout);
             UpdateControls();
         }
@@ -110,7 +112,7 @@ namespace Gui.ShipService
             _shipInfo.ResetPrice.Withdraw(_playerResources);
             _soundPlayer.Play(_buySound);
             _selectedBlockX = _selectedBlockY = _invalidBlock;
-            _shipInfo = new ShipInformation(_ship, _faction, _level);
+            _shipInfo = new ShipInformation(_ship, _faction, _level, _database);
             _shipLayout.Initialize(_ship.Model.Layout);
             UpdateControls();
         }
@@ -190,10 +192,10 @@ namespace Gui.ShipService
 
         private struct ShipInformation
         {
-            public ShipInformation(IShip ship, Faction shipyardFaction, int shipyardLevel)
+            public ShipInformation(IShip ship, Faction shipyardFaction, int shipyardLevel, IDatabase database)
             {
                 _shipLevel = ship.Experience.Level;
-
+                _database = database;
                 TotalCells = ship.Model.LayoutModifications.TotalExtraCells();
                 Cells = ship.Model.LayoutModifications.ExtraCells();
 
@@ -207,9 +209,9 @@ namespace Gui.ShipService
                 Price2 = starsAllowed ? Price.Premium(1 + Cells/2) : new Price(0, Currency.Credits);
                 ResetPrice = starsAllowed ? Price.Premium(Cells) : Price.Common(Cells*2000);
 
-                RequiredLevel = TotalCells > 0 ? 5 + Mathf.Min(5 * Cells, 95 * Cells / TotalCells) : 0;
+                RequiredLevel = TotalCells > 0 ? _database.ShipSettings.ShipExtensionRequiredLevelBase + Mathf.Min(_database.ShipSettings.ShipExtensionRequiredLevelFactor1 * Cells, _database.ShipSettings.ShipExtensionRequiredLevelFactor2 * Cells / TotalCells) : 0;
 
-                RequiredShipyardLevel = Cells * 5 + 5;
+                RequiredShipyardLevel = Cells * _database.ShipSettings.ShipExtensionShipyardLevelPerCell + _database.ShipSettings.ShipExtensionShipyardLevelBase;
                 IsShipyardLevelEnough = shipyardLevel >= RequiredShipyardLevel &&
                     (ship.Model.Faction == Faction.Empty || ship.Model.Faction == shipyardFaction);
             }
@@ -228,6 +230,7 @@ namespace Gui.ShipService
             public readonly int RequiredLevel;
 
             private readonly int _shipLevel;
+            private readonly IDatabase _database;
         }
     }
 }
