@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace Combat.Component.Body
@@ -21,8 +21,8 @@ namespace Combat.Component.Body
         public Vector2 Position { get; private set; }
         public float Rotation { get; private set; }
         public float Offset { get; private set; }
-        public Vector2 Velocity => Vector2.zero;
-        public float AngularVelocity => 0f;
+        public Vector2 Velocity { get => Vector2.zero; set {} }
+        public float AngularVelocity { get => 0f; set {} }
         public float Weight { get; private set; }
         public float Scale { get; private set; }
         public Vector2 VisualPosition => Position;

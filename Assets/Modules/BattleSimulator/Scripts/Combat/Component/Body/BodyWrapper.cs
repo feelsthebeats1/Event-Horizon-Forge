@@ -1,4 +1,4 @@
-﻿using Combat.Component.Body;
+using Combat.Component.Body;
 using UnityEngine;
 
 namespace Combat.Component.Bullet.Action
@@ -15,8 +15,8 @@ namespace Combat.Component.Bullet.Action
         public Vector2 Position => _body.Position;
         public float Rotation => _body.Rotation + _rotation;
         public float Offset => _body.Offset;
-        public Vector2 Velocity => _body.Velocity;
-        public float AngularVelocity => _body.AngularVelocity;
+        public Vector2 Velocity { get => _body.Velocity; set => _body.Velocity = value; }
+        public float AngularVelocity { get => _body.AngularVelocity; set => _body.AngularVelocity = value; }
         public float Weight => _body.Weight;
         public float Scale => _body.Scale;
         public Vector2 VisualPosition => _body.VisualPosition;

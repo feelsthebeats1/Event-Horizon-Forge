@@ -1,4 +1,4 @@
-﻿using Combat.Component.Body;
+using Combat.Component.Body;
 using Combat.Component.Features;
 using Combat.Component.Ship;
 using Combat.Component.Unit;
@@ -24,8 +24,8 @@ namespace Combat.Component.Platform
         public Vector2 Position => _position;
         public float Rotation => _rotation;
         public float Offset => _offset;
-        public Vector2 Velocity => Vector2.zero;
-        public float AngularVelocity => _angularVelocity;
+        public Vector2 Velocity { get => Vector2.zero; set {} }
+        public float AngularVelocity { get => _angularVelocity; set {} }
         public float Weight => 0.0f;
         public float Scale => _scale;
         public Vector2 VisualPosition => _position;
