@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Combat.Component.Body
@@ -11,8 +11,8 @@ namespace Combat.Component.Body
         float Rotation { get; }
         float Offset { get; }
 
-        Vector2 Velocity { get; set; }
-        float AngularVelocity { get; set; }
+        Vector2 Velocity { get; }
+        float AngularVelocity { get; }
 
         float Weight { get; }
         float Scale { get; }

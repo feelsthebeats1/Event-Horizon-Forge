@@ -74,7 +74,7 @@ namespace Combat.Collision
         {
             return KineticDamage + EnergyDamage + HeatDamage + Resistance.ModifyDamage(CorrosiveDamage, corrosiveResistance) + ShieldDamage;
         }
-
+         
         public float GetTotalDamage(in Resistance resistance)
         {
 			var damage =
@@ -133,10 +133,10 @@ namespace Combat.Collision
         {
             return new Impact
             {
-                KineticDamage = KineticDamage * (1f - resistance.Kinetic),
-                EnergyDamage = EnergyDamage * (1f - resistance.Energy),
-                HeatDamage = HeatDamage * (1f - resistance.Heat),
-                CorrosiveDamage = CorrosiveDamage * (1f - 0.5f * resistance.MinResistance),
+                KineticDamage = resistance.ModifyKineticDamage(KineticDamage),
+                EnergyDamage = resistance.ModifyEnergyDamage(EnergyDamage),
+                HeatDamage = resistance.ModifyHeatDamage(HeatDamage),
+                CorrosiveDamage = resistance.ModifyCorrosiveDamage(CorrosiveDamage),
                 ShieldDamage = ShieldDamage,
                 EnergyDrain = EnergyDrain,
                 Impulse = Impulse,

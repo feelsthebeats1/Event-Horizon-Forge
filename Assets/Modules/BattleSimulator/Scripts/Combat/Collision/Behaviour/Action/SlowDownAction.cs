@@ -1,4 +1,4 @@
-using Combat.Collision.Manager;
+﻿using Combat.Collision.Manager;
 using Combat.Component.Ship;
 using Combat.Component.Unit;
 using GameDatabase.Enums;
@@ -32,14 +32,9 @@ namespace Combat.Collision.Behaviour.Action
 
             if (target is IShip ship)
             {
-                // Direct velocity dampening: scale velocity by (1 - dampFactor)
-                // This avoids the impulse-based push/pull overshoot problem
-                var dampFactor = Mathf.Clamp01(power / Mathf.Sqrt(target.Body.Weight));
-                var velocity = target.Body.Velocity;
-                var angularVelocity = target.Body.AngularVelocity;
-
-                target.Body.Velocity = velocity * (1f - dampFactor);
-                target.Body.AngularVelocity = angularVelocity * (1f - dampFactor);
+                power = Mathf.Clamp01(power / Mathf.Sqrt(target.Body.Weight));
+                target.Body.ApplyAcceleration(-target.Body.Velocity * power);
+                target.Body.ApplyAngularAcceleration(-target.Body.AngularVelocity * power);
             }
         }
 
