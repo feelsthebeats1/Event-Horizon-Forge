@@ -56,7 +56,7 @@ Related documents:
 
 | Path | Purpose | Edit policy |
 | --- | --- | --- |
-| [`.Schema/versions.xml`](../Assets/Modules/Database/.Schema/versions.xml) | Current schema version (`1.7`). | Edit when the data version changes. |
+| [`.Schema/versions.xml`](../Assets/Modules/Database/.Schema/versions.xml) | Current schema version (`1.8`). | Edit when the data version changes. |
 | [`.Schema/v1/Enums/`](../Assets/Modules/Database/.Schema/v1/Enums/) | 47 enum definitions. | Edit for new enum values. Never renumber values. |
 | [`.Schema/v1/Expressions/`](../Assets/Modules/Database/.Schema/v1/Expressions/) | 4 expression signatures (`IntToInt`, `IntToFloat`, `FloatToFloat`, `SizeClassToInt`). | Rarely changed. |
 | [`.Schema/v1/Objects/`](../Assets/Modules/Database/.Schema/v1/Objects/) | 68 record, settings, and structure definitions. | Edit for data-shape changes. |
@@ -391,17 +391,17 @@ The decompressed payload starts with a header (format ID, name, ID, major and mi
 
 | Source | Value today |
 | --- | --- |
-| [`.Schema/versions.xml`](../Assets/Modules/Database/.Schema/versions.xml) | `v1`, major 1, minor 7 |
-| Generated constants `Database.VersionMajor`/`VersionMinor` | 1, 7 |
-| [`Resources/Database/Settings/Database.json`](../Assets/Modules/Database/Resources/Database/Settings/Database.json) | `DatabaseVersion` 1, `DatabaseVersionMinor` 7 |
+| [`.Schema/versions.xml`](../Assets/Modules/Database/.Schema/versions.xml) | `v1`, major 1, minor 8 |
+| Generated constants `Database.VersionMajor`/`VersionMinor` | 1, 8 |
+| [`Resources/Database/Settings/Database.json`](../Assets/Modules/Database/Resources/Database/Settings/Database.json) | `DatabaseVersion` 1, `DatabaseVersionMinor` 8 |
 | Packed mod header | Version of the editor that packed it |
 
 A storage whose version equals the compiled version loads directly. Any other version goes through [`DatabaseUpgrader`](../Assets/Modules/Database/Scripts/GeneratedMigrationCode/DatabaseUpgrader.cs#L21):
 
 1. Major version 0 is treated as 1.0.
-2. Versions outside 1.0–1.7 throw `invalid database version`. A mod from a newer game version does not load.
+2. Versions outside 1.0–1.8 throw `invalid database version`. A mod from a newer game version does not load.
 3. The upgrader reads the storage into the generated v1 migration DTOs.
-4. It runs each minor step in order from the storage version to 1.7.
+4. It runs each minor step in order from the storage version to 1.8.
 5. It serializes every DTO back to JSON and feeds it to the normal `DatabaseContent`.
 
 ### Migration steps
@@ -415,6 +415,7 @@ A storage whose version equals the compiled version loads directly. Any other ve
 | 1.4 → 1.5 | [DatabaseUpgrader_4_5.cs](../Assets/Modules/Database/Scripts/Migration/v1/DatabaseUpgrader_4_5.cs) | Adds `CombatRules` 1 with defaults and sets `CombatSettings.DefaultCombatRules` to 1. |
 | 1.5 → 1.6 | [DatabaseUpgrader_5_6.cs](../Assets/Modules/Database/Scripts/Migration/v1/DatabaseUpgrader_5_6.cs) | Converts the obsolete `BulletBody.Type` to `AiBulletBehavior`, `ParentVelocityEffect`, `AttachedToParent`, and a controller (`Homing`, `Beam`). Throws when new and obsolete fields are mixed. |
 | 1.6 → 1.7 | [DatabaseUpgrader_6_7.cs](../Assets/Modules/Database/Scripts/Migration/v1/DatabaseUpgrader_6_7.cs) | Replaces `ComponentRestrictions.UniqueComponentTag` strings with `ComponentGroupTag` records. Adds implicit group tags for unique device classes (one teleporter, one stealth, one shield, and so on), numbered from 1. |
+| 1.7 → 1.8 | [DatabaseUpgrader_7_8.cs](../Assets/Modules/Database/Scripts/Migration/v1/DatabaseUpgrader_7_8.cs) | Sets `NotAvailableInBlackMarket` and `NotAvailableInRuins` on every satellite of class `Titan`, replacing the hard-coded exclusions in the black market and ruins loot. |
 
 The migration steps assume a complete database. Partial mods can lose data or override built-in records. See [issue DB2](issues/database.md#db2-migrations-assume-a-complete-database).
 
