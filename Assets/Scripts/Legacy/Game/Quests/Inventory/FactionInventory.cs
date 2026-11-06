@@ -52,27 +52,28 @@ namespace GameModel
 			{
                 var pricescale = _playerSkills.PriceScale;
                 var extraGoods = _playerSkills.HasMasterTrader ? 1 : 0;
+                var market = _database.MarketSettings;
 
                 _items = new List<IProduct>();
-				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateFuelItem(), 100 + 100*extraGoods, _starId, Market.FuelRenewalTime, pricescale));
+				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateFuelItem(), 100 + 100*extraGoods, _starId, Market.RenewalTicks(market.FuelRenewal), pricescale));
 				
-				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f5s1")), _database)), 1, _starId, Market.ShipRenewalTime, pricescale));
-				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f7s1")), _database)), 1, _starId, Market.ShipRenewalTime, pricescale));
-				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("fns3")), _database)), 1, _starId, Market.ShipRenewalTime, pricescale));
-				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f0s1")), _database)), 1, _starId, Market.ShipRenewalTime, pricescale));
-				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f1s2")), _database)), 1, _starId, Market.ShipRenewalTime, pricescale));
-				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f2s2")), _database)), 1, _starId, Market.ShipRenewalTime, pricescale));
-				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f4s1")), _database)), 1, _starId, Market.ShipRenewalTime, pricescale));
+				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f5s1")), _database)), 1, _starId, Market.RenewalTicks(market.ShipRenewal), pricescale));
+				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f7s1")), _database)), 1, _starId, Market.RenewalTicks(market.ShipRenewal), pricescale));
+				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("fns3")), _database)), 1, _starId, Market.RenewalTicks(market.ShipRenewal), pricescale));
+				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f0s1")), _database)), 1, _starId, Market.RenewalTicks(market.ShipRenewal), pricescale));
+				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f1s2")), _database)), 1, _starId, Market.RenewalTicks(market.ShipRenewal), pricescale));
+				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f2s2")), _database)), 1, _starId, Market.RenewalTicks(market.ShipRenewal), pricescale));
+				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f4s1")), _database)), 1, _starId, Market.RenewalTicks(market.ShipRenewal), pricescale));
 
                 if (extraGoods > 0)
 			    {
-			        _items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f9s1")), _database)), 1, _starId, Market.ShipRenewalTime, pricescale));
-                    _items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("fas3")), _database)), 1, _starId, Market.ShipRenewalTime, pricescale));
+			        _items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("f9s1")), _database)), 1, _starId, Market.RenewalTicks(market.ShipRenewal), pricescale));
+                    _items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(_database.GetShipBuild(LegacyShipBuildNames.GetId("fas3")), _database)), 1, _starId, Market.RenewalTicks(market.ShipRenewal), pricescale));
                 }
 
 			    for (var i = 0; i < 5 + extraGoods; ++i)
                     if (_productFactory.TryCreateRandomComponentProduct(_starId, i, _level, Constructor.ComponentQuality.P1, 
-                        _faction, false, Market.CommonComponentRenewalTime, out var product, false, 2f * pricescale))
+                        _faction, false, Market.RenewalTicks(market.CommonComponentRenewal), out var product, false, 2f * pricescale))
                         _items.Add(product);
 
 				//if (Model.Regulations.Time.IsCristmas)
@@ -86,9 +87,10 @@ namespace GameModel
 				var random = _random.CreateRandom(_starId);
                 var pricescale = _playerSkills.PriceScale;
                 var extraGoods = _playerSkills.HasMasterTrader ? 1 : 0;
+                var market = _database.MarketSettings;
 
                 _items = new List<IProduct>();
-				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateFuelItem(), 100 + 100*extraGoods, _starId, Market.FuelRenewalTime, 2f*pricescale));
+				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateFuelItem(), 100 + 100*extraGoods, _starId, Market.RenewalTicks(market.FuelRenewal), 2f*pricescale));
 
 				_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateResearchItem(_faction), random.Next(1,5) + extraGoods, _starId, 0, pricescale));
 				
@@ -99,11 +101,11 @@ namespace GameModel
 					Random(random);
 
 				if (ship != null)
-					_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(ship, _database)), 1, _starId, Market.ShipRenewalTime, 3f*pricescale));
+					_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(ship, _database)), 1, _starId, Market.RenewalTicks(market.ShipRenewal), 3f*pricescale));
 				
 				for (var i = 0; i < 5 + extraGoods; ++i)
                     if (_productFactory.TryCreateRandomComponentProduct(_starId, i, _level, Constructor.ComponentQuality.P1, 
-                        _faction, false, Market.CommonComponentRenewalTime, out var product, false, 2f * pricescale))
+                        _faction, false, Market.RenewalTicks(market.CommonComponentRenewal), out var product, false, 2f * pricescale))
                         _items.Add(product);
 
 				//if (Model.Regulations.Time.IsCristmas && random.Next(3) == 0)

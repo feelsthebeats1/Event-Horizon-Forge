@@ -285,24 +285,24 @@ namespace GameServices.Economy
         public IEnumerable<IProduct> GetRuinsRewards(int level, int seed)
         {
             var random = _random.CreateRandom(seed);
+            var ruinsSettings = _database.RuinsSettings;
 
-            yield return Price.Common(5 * Maths.Distance.Credits(level)).GetProduct(_factory);
-            yield return CommonProduct.Create(_factory.CreateFuelItem(), random.Next(5,15));
+            yield return Price.Common(ruinsSettings.CreditsMultiplier * Maths.Distance.Credits(level)).GetProduct(_factory);
+            yield return CommonProduct.Create(_factory.CreateFuelItem(), random.Next(ruinsSettings.FuelMin, ruinsSettings.FuelMax + 1));
 
-            if (random.Next(3) == 0)
+            if (random.Next(ruinsSettings.SatelliteChance) == 0)
             {
-                var ruinsSettings = _database.RuinsSettings;
-                var excludedSatellites = ruinsSettings.ExcludedSatellites;
                 var itemLevel = ruinsSettings.MaxSatelliteCells(level);
-                var companions = _database.SatelliteList.Where(item => item.Layout.CellCount <= itemLevel && !excludedSatellites.Contains(item));
-                foreach (var item in companions.RandomUniqueElements(1, random))
+                var companions = _database.SatelliteList.Where(item => item.Layout.CellCount <= itemLevel && !item.NotAvailableInRuin);
+                foreach (var item in companions.RandomUniqueElements(ruinsSettings.SatelliteCount, random))
                     yield return CommonProduct.Create(_factory.CreateSatelliteItem(item));
             }
 
-            foreach (var item in RandomComponents(Maths.Distance.ComponentLevel(level) + 35, random.Next(1, 3), null, random, false))
+            var componentLevel = ruinsSettings.ComponentLevel(Maths.Distance.ComponentLevel(level));
+            foreach (var item in RandomComponents(componentLevel, random.Next(ruinsSettings.ComponentMin, ruinsSettings.ComponentMax + 1), null, random, false))
                 yield return CommonProduct.Create(item);
 
-            var quantity = random.Next(3);
+            var quantity = random.Next(ruinsSettings.StarsMin, ruinsSettings.StarsMax + 1);
             if (quantity > 0)
                 yield return Price.Premium(quantity).GetProduct(_factory);
 

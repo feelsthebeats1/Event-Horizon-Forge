@@ -34,6 +34,7 @@ namespace DatabaseMigration.v1.Serializable
 		public int SurvivalCombatRules;
 		public int StarbaseCombatRules;
 		public int FlagshipCombatRules;
+		public int RuinsCombatRules;
 		public int ArenaCombatRules;
 		public int ChallengeCombatRules;
 		public int QuickCombatRules;

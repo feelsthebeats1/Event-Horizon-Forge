@@ -21,7 +21,17 @@ namespace DatabaseMigration.v1.Serializable
 			FileName = "RuinsSettings.json";
 		}
 
-		public int[] ExcludedSatellites;
 		public string MaxSatelliteCells = "MAX(6, FLOOR(level/2))";
+		public int CreditsMultiplier = 5;
+		public int FuelMin = 5;
+		public int FuelMax = 14;
+		public int SatelliteChance = 3;
+		public int SatelliteCount = 1;
+		public string ComponentLevel = "level + 35";
+		public int ComponentMin = 1;
+		public int ComponentMax = 2;
+		public int StarsMin = 0;
+		public int StarsMax = 2;
+		public int FleetSizeMultiplier = 2;
 	}
 }

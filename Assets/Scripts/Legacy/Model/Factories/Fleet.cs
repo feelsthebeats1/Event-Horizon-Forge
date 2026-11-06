@@ -112,7 +112,7 @@ namespace Model
 					BelongToFaction(database.GalaxySettings.AbandonedStarbaseFaction).
 					WithMinDifficulty(DifficultyClass.Class1).
 					FilterByStarDistance(distance, ShipBuildQuery.FilterMode.Size).
-                    SelectRandom(Maths.Distance.FleetSize(distance, random) * 2, random).
+                    SelectRandom(Maths.Distance.FleetSize(distance, random) * database.RuinsSettings.FleetSizeMultiplier, random).
 					Shuffle(random);
 
                 return new CommonFleet(database, ships.All, distance, random.Next());

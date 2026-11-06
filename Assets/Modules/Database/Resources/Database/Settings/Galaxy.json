@@ -13,6 +13,7 @@
   "SurvivalCombatRules": 3,
   "StarbaseCombatRules": 4,
   "FlagshipCombatRules": 5,
+  "RuinsCombatRules": 5,
   "ArenaCombatRules": 6,
   "ChallengeCombatRules": 7,
   "QuickCombatRules": 2

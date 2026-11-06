@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data name="MarketSettings" type="settings" typeid="MarketSettings" >
+    <member name="FuelRenewal" type="float" minvalue="-1" maxvalue="1000000" default="1"
+        >Minutes before a market refills its fuel stock. A negative value never refills.</member>
+    <member name="TechRenewal" type="float" minvalue="-1" maxvalue="1000000" default="60"
+        >Minutes before the black market refills its research stock.</member>
+    <member name="StarsRenewal" type="float" minvalue="-1" maxvalue="1000000" default="1440"
+        >Minutes before the black market refills its star stock.</member>
+    <member name="ShipRenewal" type="float" minvalue="-1" maxvalue="1000000" default="-1"
+        >Minutes before a market refills its ship stock. The built-in value never refills.</member>
+    <member name="CommonComponentRenewal" type="float" minvalue="-1" maxvalue="1000000" default="1440"
+        >Minutes before a faction market refills one common component.</member>
+    <member name="RareComponentRenewal" type="float" minvalue="-1" maxvalue="1000000" default="4320"
+        >Minutes before the black market refills one rare component.</member>
+    <member name="SatelliteRenewal" type="float" minvalue="-1" maxvalue="1000000" default="4320"
+        >Minutes before the black market refills one satellite.</member>
+    <member name="RareComponentLevel" type="expression" typeid="IntToInt" arguments="level" minvalue="0" maxvalue="1000"
+        default="level + 75" >Component level the black market offers at a star level.</member>
+    <member name="RareComponentMin" type="int" minvalue="0" maxvalue="20" default="4"
+        >Smallest number of rare components in a black market.</member>
+    <member name="RareComponentMax" type="int" minvalue="0" maxvalue="20" default="7"
+        >Largest number of rare components in a black market, one below the roll limit.</member>
+    <member name="SatelliteCount" type="int" minvalue="0" maxvalue="20" default="3"
+        >Number of satellites in a black market. The Master Trader skill adds one more.</member>
+    <member name="BlackMarketMoney" type="int" minvalue="0" maxvalue="1000000" default="10000"
+        >Credits the black market accepts per visit.</member>
+</data>

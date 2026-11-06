@@ -53,4 +53,5 @@
     <item name="WeaponSlots" value="118" />
     <item name="BlackMarketSettings" value="119" />
     <item name="RuinsSettings" value="120" />
+    <item name="MarketSettings" value="121" />
 </data>

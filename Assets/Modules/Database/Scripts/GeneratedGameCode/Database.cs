@@ -16,7 +16,6 @@ namespace GameDatabase
 {
 	public partial interface IDatabase
 	{
-		BlackMarketSettings BlackMarketSettings { get; }
 		CombatSettings CombatSettings { get; }
 		DatabaseSettings DatabaseSettings { get; }
 		DebugSettings DebugSettings { get; }
@@ -24,6 +23,7 @@ namespace GameDatabase
 		FactionsSettings FactionsSettings { get; }
 		GalaxySettings GalaxySettings { get; }
 		LocalizationSettings LocalizationSettings { get; }
+		MarketSettings MarketSettings { get; }
 		MusicPlaylist MusicPlaylist { get; }
 		RuinsSettings RuinsSettings { get; }
 		ShipModSettings ShipModSettings { get; }
@@ -99,7 +99,6 @@ namespace GameDatabase
 		public const int VersionMajor = 1;
 		public const int VersionMinor = 8;
 
-		public BlackMarketSettings BlackMarketSettings { get; private set; }
 		public CombatSettings CombatSettings { get; private set; }
 		public DatabaseSettings DatabaseSettings { get; private set; }
 		public DebugSettings DebugSettings { get; private set; }
@@ -107,6 +106,7 @@ namespace GameDatabase
 		public FactionsSettings FactionsSettings { get; private set; }
 		public GalaxySettings GalaxySettings { get; private set; }
 		public LocalizationSettings LocalizationSettings { get; private set; }
+		public MarketSettings MarketSettings { get; private set; }
 		public MusicPlaylist MusicPlaylist { get; private set; }
 		public RuinsSettings RuinsSettings { get; private set; }
 		public ShipModSettings ShipModSettings { get; private set; }
@@ -206,7 +206,6 @@ namespace GameDatabase
 			_visualEffectMap.Clear();
 			_weaponMap.Clear();
 
-			BlackMarketSettings = null;
 			CombatSettings = null;
 			DatabaseSettings = null;
 			DebugSettings = null;
@@ -214,6 +213,7 @@ namespace GameDatabase
 			FactionsSettings = null;
 			GalaxySettings = null;
 			LocalizationSettings = null;
+			MarketSettings = null;
 			MusicPlaylist = null;
 			RuinsSettings = null;
 			ShipModSettings = null;
@@ -370,8 +370,6 @@ namespace GameDatabase
                     if (!_database._localizations.ContainsKey(item.Key))
                         _database._localizations.Add(item.Key, item.Value);
 
-				if (_database.BlackMarketSettings == null)
-					_database.BlackMarketSettings = BlackMarketSettings.Create(_content.BlackMarketSettings ?? new Serializable.BlackMarketSettingsSerializable { ItemType = Enums.ItemType.BlackMarketSettings }, this);
 				if (_database.CombatSettings == null)
 					_database.CombatSettings = CombatSettings.Create(_content.CombatSettings ?? new Serializable.CombatSettingsSerializable { ItemType = Enums.ItemType.CombatSettings }, this);
 				if (_database.DatabaseSettings == null)
@@ -386,6 +384,8 @@ namespace GameDatabase
 					_database.GalaxySettings = GalaxySettings.Create(_content.GalaxySettings ?? new Serializable.GalaxySettingsSerializable { ItemType = Enums.ItemType.GalaxySettings }, this);
 				if (_database.LocalizationSettings == null)
 					_database.LocalizationSettings = LocalizationSettings.Create(_content.LocalizationSettings ?? new Serializable.LocalizationSettingsSerializable { ItemType = Enums.ItemType.LocalizationSettings }, this);
+				if (_database.MarketSettings == null)
+					_database.MarketSettings = MarketSettings.Create(_content.MarketSettings ?? new Serializable.MarketSettingsSerializable { ItemType = Enums.ItemType.MarketSettings }, this);
 				if (_database.MusicPlaylist == null)
 					_database.MusicPlaylist = MusicPlaylist.Create(_content.MusicPlaylist ?? new Serializable.MusicPlaylistSerializable { ItemType = Enums.ItemType.MusicPlaylist }, this);
 				if (_database.RuinsSettings == null)

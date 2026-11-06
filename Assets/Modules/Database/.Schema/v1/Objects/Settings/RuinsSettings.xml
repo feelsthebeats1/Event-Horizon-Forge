@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data name="RuinsSettings" type="settings" typeid="RuinsSettings" >
-    <member name="ExcludedSatellites" type="object_list" typeid="Satellite" />
     <member name="MaxSatelliteCells" type="expression" typeid="IntToInt" arguments="level" minvalue="0" maxvalue="1000"
-        default="MAX(6, FLOOR(level/2))" />
+        default="MAX(6, FLOOR(level/2))" >Largest satellite layout, in cells, that ruins can drop at a star level.</member>
+    <member name="CreditsMultiplier" type="int" minvalue="0" maxvalue="100" default="5"
+        >Credits per ruin, times the distance credit formula.</member>
+    <member name="FuelMin" type="int" minvalue="0" maxvalue="100" default="5"
+        >Smallest fuel stack a ruin gives.</member>
+    <member name="FuelMax" type="int" minvalue="0" maxvalue="100" default="14"
+        >Largest fuel stack a ruin gives. The value is inclusive.</member>
+    <member name="SatelliteChance" type="int" minvalue="1" maxvalue="100" default="3"
+        >One in this many ruins drops a satellite.</member>
+    <member name="SatelliteCount" type="int" minvalue="0" maxvalue="10" default="1"
+        >Number of satellites a ruin drops.</member>
+    <member name="ComponentLevel" type="expression" typeid="IntToInt" arguments="level" minvalue="0" maxvalue="1000"
+        default="level + 35" >Component level a ruin gives at a star level.</member>
+    <member name="ComponentMin" type="int" minvalue="0" maxvalue="20" default="1"
+        >Smallest number of components a ruin gives.</member>
+    <member name="ComponentMax" type="int" minvalue="0" maxvalue="20" default="2"
+        >Largest number of components a ruin gives. The value is inclusive.</member>
+    <member name="StarsMin" type="int" minvalue="0" maxvalue="10" default="0"
+        >Smallest premium star payout. Zero means the ruin pays no stars.</member>
+    <member name="StarsMax" type="int" minvalue="0" maxvalue="10" default="2"
+        >Largest premium star payout. The value is inclusive.</member>
+    <member name="FleetSizeMultiplier" type="int" minvalue="1" maxvalue="10" default="2"
+        >Ruins fleet size, times the common fleet size formula.</member>
 </data>

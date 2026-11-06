@@ -40,6 +40,7 @@ namespace GameDatabase.DataModel
 			SurvivalCombatRules = loader?.GetCombatRules(new ItemId<CombatRules>(serializable.SurvivalCombatRules)) ?? CombatRules.DefaultValue;
 			StarbaseCombatRules = loader?.GetCombatRules(new ItemId<CombatRules>(serializable.StarbaseCombatRules)) ?? CombatRules.DefaultValue;
 			FlagshipCombatRules = loader?.GetCombatRules(new ItemId<CombatRules>(serializable.FlagshipCombatRules)) ?? CombatRules.DefaultValue;
+			RuinsCombatRules = loader?.GetCombatRules(new ItemId<CombatRules>(serializable.RuinsCombatRules)) ?? CombatRules.DefaultValue;
 			ArenaCombatRules = loader?.GetCombatRules(new ItemId<CombatRules>(serializable.ArenaCombatRules)) ?? CombatRules.DefaultValue;
 			ChallengeCombatRules = loader?.GetCombatRules(new ItemId<CombatRules>(serializable.ChallengeCombatRules)) ?? CombatRules.DefaultValue;
 			QuickCombatRules = loader?.GetCombatRules(new ItemId<CombatRules>(serializable.QuickCombatRules)) ?? CombatRules.DefaultValue;
@@ -63,6 +64,7 @@ namespace GameDatabase.DataModel
 		public CombatRules SurvivalCombatRules { get; private set; }
 		public CombatRules StarbaseCombatRules { get; private set; }
 		public CombatRules FlagshipCombatRules { get; private set; }
+		public CombatRules RuinsCombatRules { get; private set; }
 		public CombatRules ArenaCombatRules { get; private set; }
 		public CombatRules ChallengeCombatRules { get; private set; }
 		public CombatRules QuickCombatRules { get; private set; }

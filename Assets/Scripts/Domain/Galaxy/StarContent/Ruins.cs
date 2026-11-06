@@ -44,7 +44,11 @@ namespace Galaxy.StarContent
             var builder = _combatModelBuilderFactory.Create();
             builder.PlayerFleet = firstFleet;
             builder.EnemyFleet = CreateFleet(starId);
-            builder.Rules = _database.GalaxySettings.FlagshipCombatRules ?? _database.CombatSettings.DefaultCombatRules;
+            // A mod that ships its own GalaxySettings does not know RuinsCombatRules, and an unset
+            // reference resolves to null, so fall back to the rules ruins used before the field.
+            builder.Rules = _database.GalaxySettings.RuinsCombatRules
+                ?? _database.GalaxySettings.FlagshipCombatRules
+                ?? _database.CombatSettings.DefaultCombatRules;
             builder.AddSpecialReward(_lootGenerator.GetRuinsRewards(level, starId));
             builder.StarLevel = level;
 

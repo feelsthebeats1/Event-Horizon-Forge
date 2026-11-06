@@ -32,7 +32,7 @@ namespace GameModel
 			    _playerSkills = playerSkills;
 			    _database = database;
 				
-				Money = 10000;
+				Money = database.MarketSettings.BlackMarketMoney;
 			}
 
 			public void Refresh() { _items = null; }
@@ -46,31 +46,31 @@ namespace GameModel
 						var random = _random.CreateRandom(_starId);
 					    var pricescale = _playerSkills.PriceScale;
 					    var extraGoods = _playerSkills.HasMasterTrader ? 1 : 0;
+					    var market = _database.MarketSettings;
 
 						_items = new List<IProduct>();
-						_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateFuelItem(), 100 + extraGoods*50, _starId, Market.FuelRenewalTime, 5f*pricescale));
+						_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateFuelItem(), 100 + extraGoods*50, _starId, Market.RenewalTicks(market.FuelRenewal), 5f*pricescale));
 
 						foreach(var id in _database.FactionsWithEmpty.ValidForMerchants().CanGiveTechPoints(_level).RandomUniqueElements(random.Next(2, 5 + extraGoods), random))
-							_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateResearchItem(id), random.Next(1,5), _starId, Market.TechRenewalTime, pricescale));
+							_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateResearchItem(id), random.Next(1,5), _starId, Market.RenewalTicks(market.TechRenewal), pricescale));
 #if !IAP_DISABLED
-    					_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateCurrencyItem(Currency.Stars), random.Next(5, 15 + 5*extraGoods), _starId, Market.StarsRenewalTime, 2f*pricescale));
+    					_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateCurrencyItem(Currency.Stars), random.Next(5, 15 + 5*extraGoods), _starId, Market.RenewalTicks(market.StarsRenewal), 2f*pricescale));
 #endif
 						foreach (var ship in ShipBuildQuery.PlayerShips(_database).Common().WithSizeClass(SizeClass.Frigate, SizeClass.Battleship).Where(IsShipFactionValid).SelectUniqueRandom(random.Next(extraGoods + 1, 5), random).All)
-							_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(ship, _database), true), 1, _starId, Market.ShipRenewalTime, pricescale));
+							_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateMarketShipItem(new CommonShip(ship, _database), true), 1, _starId, Market.RenewalTicks(market.ShipRenewal), pricescale));
 
-						var componentCount = random.Next(4, 7);
+						var componentCount = random.Next(market.RareComponentMin, market.RareComponentMax);
 						for (var i = 0; i < componentCount; ++i)
-                            if (_productFactory.TryCreateRandomComponentProduct(_starId, i, _level + 75, ComponentQuality.P3,
-                                null, true, Market.RareComponentRenewalTime, out var product, true, 2f * pricescale))
+                            if (_productFactory.TryCreateRandomComponentProduct(_starId, i, market.RareComponentLevel(_level), ComponentQuality.P3,
+                                null, true, Market.RenewalTicks(market.RareComponentRenewal), out var product, true, 2f * pricescale))
     							_items.Add(product);
 
                         if (extraGoods > 0)
-                            if (_productFactory.TryCreateRandomComponentProduct(_starId, componentCount, _level + 75, ComponentQuality.P3, null, true, Market.RareComponentRenewalTime, out var product, false, 5f * pricescale))
+                            if (_productFactory.TryCreateRandomComponentProduct(_starId, componentCount, market.RareComponentLevel(_level), ComponentQuality.P3, null, true, Market.RenewalTicks(market.RareComponentRenewal), out var product, false, 5f * pricescale))
                                _items.Add(product);
 
-                        var excludedSatellites = _database.BlackMarketSettings.ExcludedSatellites;
-                        foreach (var item in _database.SatelliteList.Where(item => !excludedSatellites.Contains(item)).RandomUniqueElements(random.Next(extraGoods + 3), random))
-							_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateSatelliteItem(item, true), 1, _starId, Market.SatelliteRenewalTime, pricescale));
+                        foreach (var item in _database.SatelliteList.Where(item => !item.NotAvailableInBlackMarket).RandomUniqueElements(random.Next(extraGoods + market.SatelliteCount), random))
+							_items.Add(_productFactory.CreateRenewableMarketProduct(_itemTypeFactory.CreateSatelliteItem(item, true), 1, _starId, Market.RenewalTicks(market.SatelliteRenewal), pricescale));
 
 						//if (Model.Regulations.Time.IsCristmas && random.Next(3) == 0)
 						//	_items.Add(_productFactory.CreateRenewableMarketProduct(new XmaxBoxItem(random.Next(), _starId), 1, _starId, Market.GiftBoxRenewalTime, 1));
